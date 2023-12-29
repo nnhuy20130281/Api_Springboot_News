@@ -33,5 +33,4 @@ public class User {
     private boolean status;
     @Column(name = "is_admin")
     private boolean isAdmin;
-
 }

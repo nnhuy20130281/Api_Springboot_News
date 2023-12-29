@@ -36,7 +36,7 @@ public class Category {
     @Column(name = "created_by")
     private String createdBy;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cate_news",
             joinColumns = @JoinColumn(name = "id_cate"),
