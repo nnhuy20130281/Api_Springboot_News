@@ -1,4 +1,5 @@
 package vn.edu.hcmuaf.apiNews.service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
@@ -6,7 +7,7 @@ import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     List<UserDto> getAllUsers();
 
@@ -26,5 +27,7 @@ public interface UserService {
     void deleteUser(long id);
 
     void lockUser(long id);
+
+
 
 }

@@ -2,6 +2,9 @@ package vn.edu.hcmuaf.apiNews.service.impl;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
@@ -11,6 +14,7 @@ import vn.edu.hcmuaf.apiNews.model.mapper.UserMapper;
 import vn.edu.hcmuaf.apiNews.repository.UserRepository;
 import vn.edu.hcmuaf.apiNews.service.UserService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,4 +73,19 @@ public class UserServiceImpl implements UserService {
         user.get().setStatus(!user.get().isStatus());
         userRepository.save(user.get());
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
+                Collections.singleton(new SimpleGrantedAuthority(getRoles(user))));
+    }
+
+    private String getRoles(User user) {
+        return user.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER";
+    }
+
 }
