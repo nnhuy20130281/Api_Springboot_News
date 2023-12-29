@@ -8,12 +8,17 @@ public interface NewsService {
 
     List<News> getAllNews();
 
+    List<News> getAllNewsHidden();
+
     News getNewsById(long id);
 
     News createNews(News news);
 
     News updateNews(long id, News news);
 
+    void updateNewsHidden(long id);
+
     void deleteNews(long id);
+
 }
 
