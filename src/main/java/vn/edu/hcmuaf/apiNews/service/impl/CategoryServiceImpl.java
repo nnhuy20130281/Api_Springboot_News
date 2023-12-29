@@ -23,6 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getAllCategoryHidden() {
+        return categoryRepository.findByIsDeleteTrue();
+    }
+
+    @Override
     public Category getCategoryById(long id) {
         return categoryRepository.findById(id).orElse(null);
     }
@@ -44,8 +49,18 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(long id) {
+        categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public void hideCategory(long id) {
         Category category = getCategoryById(id);
-        category.setIsDelete(true);
+        category.setIsDelete(!category.getIsDelete());
         categoryRepository.save(category);
+    }
+
+    @Override
+    public List<News> getNewsByCategory(long id) {
+        return categoryRepository.findById(id).get().getListNews().stream().toList();
     }
 }

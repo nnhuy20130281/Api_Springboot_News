@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-    // Custom queries can be added here if needed
     List<News> findByIsDeleteFalse();
+
+    List<News> findByIsDeleteTrue();
 }

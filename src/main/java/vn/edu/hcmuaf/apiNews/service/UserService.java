@@ -1,19 +1,30 @@
 package vn.edu.hcmuaf.apiNews.service;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
+import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    User getUserById(long id);
+    // get all user status = false
+    List<UserDto> getAllUsersLock();
 
-    User createUser(User user);
+    List<UserDto> getAllAdmins();
 
-    User updateUser(long id, User user);
+    List<UserDto> getAllAdminLocks();
+
+    UserDto getUserById(long id);
+
+    UserDto createUser(User user);
+
+    UserDto updateUser(long id, UpdateUser updateUser);
 
     void deleteUser(long id);
+
+    void lockUser(long id);
 
 }

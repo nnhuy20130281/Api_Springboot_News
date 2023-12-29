@@ -2,6 +2,12 @@ package vn.edu.hcmuaf.apiNews.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user_account")
@@ -10,6 +16,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class User {
 
     @Id
@@ -26,4 +33,5 @@ public class User {
     private boolean status;
     @Column(name = "is_admin")
     private boolean isAdmin;
+
 }

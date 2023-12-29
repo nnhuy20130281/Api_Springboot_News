@@ -23,6 +23,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> getAllNewsHidden() {
+        return newsRepository.findByIsDeleteTrue();
+    }
+
+    @Override
     public News getNewsById(long id) {
         return newsRepository.findById(id).orElse(null);
     }
@@ -39,14 +44,20 @@ public class NewsServiceImpl implements NewsService {
             news.setId(id);
             return newsRepository.save(news);
         }
-        return null;
+        return news;
     }
 
     @Override
-    public void deleteNews(long id) {
+    public void updateNewsHidden(long id) {
         News news = getNewsById(id);
-        news.setDelete(true);
+        news.setDelete(!news.isDelete());
         newsRepository.save(news);
+    }
+
+
+    @Override
+    public void deleteNews(long id) {
+        newsRepository.deleteById(id);
     }
 
 }

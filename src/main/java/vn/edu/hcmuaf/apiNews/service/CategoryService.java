@@ -9,6 +9,8 @@ public interface CategoryService {
 
     List<Category> getAllCategory();
 
+    List<Category> getAllCategoryHidden();
+
     Category getCategoryById(long id);
 
     Category createCategory(Category category);
@@ -16,4 +18,8 @@ public interface CategoryService {
     Category updateCategory(long id, Category category);
 
     void deleteCategory(long id);
+
+    void hideCategory(long id);
+
+    List<News> getNewsByCategory(long id);
 }
