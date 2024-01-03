@@ -46,37 +46,40 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->
-                auth
-                        .requestMatchers(HttpMethod.GET, "/api/cate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/cate").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/cate/hidden").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/cate/hidden/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/cate/{id}").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/cate/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/cate/{id}").hasRole("ADMIN")
+                        auth
+                                .requestMatchers(HttpMethod.GET, "/api/cate").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/cate").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/cate/hidden").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/cate/hidden/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/cate/{id}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/cate/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/cate/{id}").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users/admin").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users/admin/lock").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users/lock").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/users/lock/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/users/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users/admin").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users/admin/lock").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users/lock").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/users/lock/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/users/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/api/news").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/news").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/news/cate/{id}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/news/hidden").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/news/hidden/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/news/{id}").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/news/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/news/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/news").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/news").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/news/cate/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/news/hidden").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/news/hidden/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/news/{id}").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/news/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/news/{id}").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                        .anyRequest().permitAll());
+                                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/auth/logout").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/auth/user-info").authenticated()
+                                .anyRequest().permitAll()
+        );
 
 
         // use HTTP Basic authentication

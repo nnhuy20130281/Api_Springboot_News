@@ -11,6 +11,9 @@ public interface UserService extends UserDetailsService {
 
     List<UserDto> getAllUsers();
 
+    // get all user status = true
+    List<UserDto> getAllUsersActive();
+
     // get all user status = false
     List<UserDto> getAllUsersLock();
 
