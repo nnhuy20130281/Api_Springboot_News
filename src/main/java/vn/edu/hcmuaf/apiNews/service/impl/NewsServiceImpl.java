@@ -17,9 +17,16 @@ public class NewsServiceImpl implements NewsService {
     @Autowired
     private NewsRepository newsRepository;
 
+
+
     @Override
     public List<News> getAllNews() {
         return newsRepository.findByIsDeleteFalse();
+    }
+
+    @Override
+    public List<News> getNewsAll() {
+        return newsRepository.findAll();
     }
 
     @Override

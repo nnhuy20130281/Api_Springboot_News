@@ -79,8 +79,8 @@ public class UserController {
 
     // lock user
     @PutMapping("/lock/{id}")
-    public ResponseEntity<Void> lockUser(@PathVariable long id) {
+    public ResponseEntity<String> lockUser(@PathVariable long id) {
         userService.lockUser(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("200");
     }
 }

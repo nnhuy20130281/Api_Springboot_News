@@ -23,6 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> getCategoryAll() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
     public List<Category> getAllCategoryHidden() {
         return categoryRepository.findByIsDeleteTrue();
     }
