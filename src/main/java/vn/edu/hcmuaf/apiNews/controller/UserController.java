@@ -25,6 +25,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    // get all user active
+    @GetMapping("/active")
+    public List<UserDto> getAllUserActive() {
+        return userService.getAllUsersActive();
+    }
+
     // get all user lock
     @GetMapping("/lock")
     public List<UserDto> getAllUserLock() {

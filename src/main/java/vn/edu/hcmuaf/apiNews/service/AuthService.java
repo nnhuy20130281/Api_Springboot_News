@@ -10,4 +10,6 @@ public interface AuthService {
     String changePassword(String username, String password);
 
     ResponseEntity<?> registers (RegisterDto registerDto);
+
+    ResponseEntity<?> logout();
 }

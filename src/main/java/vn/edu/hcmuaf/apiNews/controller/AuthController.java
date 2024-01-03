@@ -3,10 +3,9 @@ package vn.edu.hcmuaf.apiNews.controller;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.model.dto.LoginDto;
 import vn.edu.hcmuaf.apiNews.model.dto.RegisterDto;
 import vn.edu.hcmuaf.apiNews.service.AuthService;
@@ -29,6 +28,24 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         return ResponseEntity.ok(authService.registers(registerDto));
+    }
+
+    // logout
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() {
+        return ResponseEntity.ok(authService.logout());
+    }
+
+    @GetMapping("/user-info")
+    public String getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String context = SecurityContextHolder.getContext().toString();
+
+        String username = authentication.getName();
+        String role = authentication.getAuthorities().toString();
+        boolean authenticated = authentication.isAuthenticated();
+
+        return "username: " + username + " role: " + role + " authenticated: " + authenticated + " context: " + context;
     }
 
 }

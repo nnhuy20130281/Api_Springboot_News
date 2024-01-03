@@ -25,6 +25,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
+        return UserMapper.toUserDto(userRepository.findAll());
+    }
+
+    @Override
+    public List<UserDto> getAllUsersActive() {
         return UserMapper.toUserDto(userRepository.getAllUserByStatusTrueAndIsAdminFalse());
     }
 

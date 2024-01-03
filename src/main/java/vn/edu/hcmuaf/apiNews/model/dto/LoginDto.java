@@ -10,4 +10,6 @@ import lombok.*;
 public class LoginDto {
     private String email;
     private String password;
+    private String fullName;
+    private boolean isAdmin;
 }
