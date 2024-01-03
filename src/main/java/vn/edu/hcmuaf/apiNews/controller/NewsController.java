@@ -26,6 +26,13 @@ public class NewsController {
         return newsService.getAllNews();
     }
 
+    // get all news
+    @GetMapping("/all")
+    public List<News> getNewsAll() {
+        return newsService.getNewsAll();
+    }
+
+
     // get all news hidden
     @GetMapping("/hidden")
     public List<News> getAllNewsHidden() {

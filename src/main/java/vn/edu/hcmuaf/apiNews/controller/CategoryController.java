@@ -24,6 +24,12 @@ public class CategoryController {
         return categoryService.getAllCategory();
     }
 
+    // get all category
+    @GetMapping("/all")
+    public List<Category> getCategoryAll() {
+        return categoryService.getCategoryAll();
+    }
+
     // get all category hidden
     @GetMapping("/hidden")
     public List<Category> getAllCategoryHidden() {

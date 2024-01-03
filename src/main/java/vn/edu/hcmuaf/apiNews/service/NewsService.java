@@ -8,6 +8,8 @@ public interface NewsService {
 
     List<News> getAllNews();
 
+    List<News> getNewsAll();
+
     List<News> getAllNewsHidden();
 
     News getNewsById(long id);

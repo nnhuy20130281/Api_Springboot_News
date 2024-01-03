@@ -9,6 +9,8 @@ public interface CategoryService {
 
     List<Category> getAllCategory();
 
+    List<Category> getCategoryAll();
+
     List<Category> getAllCategoryHidden();
 
     Category getCategoryById(long id);
