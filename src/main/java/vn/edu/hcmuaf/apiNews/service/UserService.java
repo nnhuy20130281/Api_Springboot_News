@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService extends UserDetailsService {
 
@@ -30,6 +31,10 @@ public interface UserService extends UserDetailsService {
     void deleteUser(long id);
 
     void lockUser(long id);
+
+    Set<News> getBookmark(long id);
+
+    void addBookmark(long idUser, long idNews);
 
 
 

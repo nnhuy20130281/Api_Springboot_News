@@ -12,6 +12,7 @@ import vn.edu.hcmuaf.apiNews.service.NewsService;
 import vn.edu.hcmuaf.apiNews.service.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
@@ -81,6 +82,20 @@ public class UserController {
     @PutMapping("/lock/{id}")
     public ResponseEntity<String> lockUser(@PathVariable long id) {
         userService.lockUser(id);
+        return ResponseEntity.ok("200");
+    }
+
+    // get bookmark
+    @GetMapping("/bookmark/{id}")
+    public ResponseEntity<Set<News>> getBookmark(@PathVariable long id) {
+        Set<News> news = userService.getBookmark(id);
+        return news != null ? ResponseEntity.ok(news) : ResponseEntity.notFound().build();
+    }
+
+    // add bookmark
+    @PutMapping("/bookmark/{idUser}/{idNews}")
+    public ResponseEntity<String> addBookmark(@PathVariable long idUser, @PathVariable long idNews) {
+        userService.addBookmark(idUser, idNews);
         return ResponseEntity.ok("200");
     }
 }
