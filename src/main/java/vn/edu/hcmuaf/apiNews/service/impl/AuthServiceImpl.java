@@ -28,7 +28,9 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.existsByEmail(loginDto.getEmail())) {
             User user = userRepository.findByEmail(loginDto.getEmail());
             if (user.isStatus()) {
+
                 LoginDto response = new LoginDto();
+                response.setId(user.getId());
                 response.setEmail(user.getEmail());
                 response.setFullName(user.getFullName());
                 response.setAdmin(user.isAdmin());
