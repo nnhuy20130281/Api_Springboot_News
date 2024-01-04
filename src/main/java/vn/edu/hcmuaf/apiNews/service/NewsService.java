@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.apiNews.service;
 
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface NewsService {
 
     News getNewsById(long id);
 
-    News createNews(News news);
+    News createNews(NewsDto newsDto);
 
     News updateNews(long id, News news);
 
