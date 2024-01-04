@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 import vn.edu.hcmuaf.apiNews.service.NewsService;
 
@@ -55,8 +56,8 @@ public class NewsController {
 
     // create news
     @PostMapping
-    public ResponseEntity<News> createNews(@RequestBody News news) {
-        News createdNews = newsService.createNews(news);
+    public ResponseEntity<News> createNews(@RequestBody NewsDto newsDto) {
+        News createdNews = newsService.createNews(newsDto);
         return new ResponseEntity<>(createdNews, HttpStatus.CREATED);
     }
 

@@ -11,17 +11,22 @@ import vn.edu.hcmuaf.apiNews.entity.User;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 import vn.edu.hcmuaf.apiNews.model.mapper.UserMapper;
+import vn.edu.hcmuaf.apiNews.repository.NewsRepository;
 import vn.edu.hcmuaf.apiNews.repository.UserRepository;
 import vn.edu.hcmuaf.apiNews.service.UserService;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NewsRepository newsRepository;
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -77,6 +82,24 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findById(id);
         user.get().setStatus(!user.get().isStatus());
         userRepository.save(user.get());
+    }
+
+    @Override
+    public Set<News> getBookmark(long id) {
+        return userRepository.findById(id).get().getListBookmark();
+    }
+
+    @Override
+    public void addBookmark(long idUser, long idNews) {
+        Optional<User> user = userRepository.findById(idUser);
+        Optional<News> news = newsRepository.findById(idNews);
+        if (user.get().getListBookmark().contains(news.get())) {
+            user.get().getListBookmark().remove(news.get());
+            userRepository.save(user.get());
+        }else {
+            user.get().getListBookmark().add(news.get());
+            userRepository.save(user.get());
+        }
     }
 
     @Override
