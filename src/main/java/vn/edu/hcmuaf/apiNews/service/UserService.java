@@ -24,7 +24,7 @@ public interface UserService extends UserDetailsService {
 
     UserDto getUserById(long id);
 
-    UserDto createUser(User user);
+    UserDto createUser(UpdateUser user);
 
     UserDto updateUser(long id, UpdateUser updateUser);
 

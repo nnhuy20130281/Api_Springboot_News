@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
+import vn.edu.hcmuaf.apiNews.model.dto.RegisterDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
+import vn.edu.hcmuaf.apiNews.service.AuthService;
 import vn.edu.hcmuaf.apiNews.service.NewsService;
 import vn.edu.hcmuaf.apiNews.service.UserService;
 
@@ -19,6 +21,9 @@ import java.util.Set;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthService authService;
 
     // get all user
     @GetMapping
@@ -59,9 +64,8 @@ public class UserController {
 
     // create user
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody User user) {
-        UserDto createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    public ResponseEntity<?> createUser(@RequestBody UpdateUser updateUser) {
+        return ResponseEntity.ok(authService.adminRegister(updateUser));
     }
 
     // update user

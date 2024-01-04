@@ -64,6 +64,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/api/users/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/users/bookmark/{id}").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/api/users/bookmark/{idUser}/{idNews}").hasRole("USER")
 
                                 .requestMatchers(HttpMethod.GET, "/api/news").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/news").hasRole("ADMIN")
@@ -76,8 +78,7 @@ public class SecurityConfiguration {
 
                                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/auth/logout").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/auth/user-info").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
                                 .anyRequest().permitAll()
         );
 

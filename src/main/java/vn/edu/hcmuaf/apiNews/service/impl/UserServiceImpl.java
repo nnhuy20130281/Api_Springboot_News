@@ -2,9 +2,11 @@ package vn.edu.hcmuaf.apiNews.service.impl;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private NewsRepository newsRepository;
+
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -60,15 +63,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(User user) {
+    public UserDto createUser(UpdateUser updateUser) {
+        User user = new User();
+        if (userRepository.existsByEmail(user.getEmail())) {
+            return null;
+        }
+        user.setFullName(updateUser.getFullName());
+        user.setEmail(updateUser.getEmail());
+        user.setAdmin(updateUser.isAdmin());
+        user.setStatus(true);
         return UserMapper.toUserDto(userRepository.save(user));
     }
 
     @Override
     public UserDto updateUser(long id, UpdateUser updateUser) {
         User user = userRepository.findById(id).get();
+        if (userRepository.existsByEmail(updateUser.getEmail()) && !user.getEmail().equals(updateUser.getEmail())) {
+            return null;
+        }
+
         user.setFullName(updateUser.getFullName());
         user.setEmail(updateUser.getEmail());
+        user.setAdmin(updateUser.isAdmin());
+        user.setStatus(updateUser.isStatus());
         return UserMapper.toUserDto(userRepository.save(user));
     }
 
