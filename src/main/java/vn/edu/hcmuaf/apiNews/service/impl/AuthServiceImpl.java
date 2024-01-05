@@ -131,7 +131,7 @@ public class AuthServiceImpl implements AuthService {
         otpMap.put(email, otp);
         System.out.println(otpMap);
 
-        scheduleOTPCleanup(email, 3);
+        scheduleOTPCleanup(email, 5);
         System.out.println(otpMap);
 
         emailService.sendResetPasswordEmail(email, otp, "OTP for password reset");
