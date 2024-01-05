@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.apiNews.service;
 
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface CategoryService {
 
     Category getCategoryById(long id);
 
-    Category createCategory(Category category);
+    String createCategory(UpdateCate updateCate);
 
-    Category updateCategory(long id, Category category);
+    String updateCategory(long id, UpdateCate updateCate);
 
     void deleteCategory(long id);
 

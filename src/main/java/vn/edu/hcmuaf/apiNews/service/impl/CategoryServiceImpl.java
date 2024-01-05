@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
 import vn.edu.hcmuaf.apiNews.repository.CategoryRepository;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 
@@ -38,18 +39,23 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+    public String createCategory(UpdateCate updateCate) {
+        Category category = new Category();
+        category.setName(updateCate.getName());
+        category.setIsDelete(updateCate.isDelete());
+        category.setCreatedBy(updateCate.getCreatedBy());
+        category.setCreatedDate(updateCate.getCreatedDate());
+        categoryRepository.save(category);
+        return "Category created successfully!";
     }
 
     @Override
-    public Category updateCategory(long id, Category category) {
-        Optional<Category> existingCategory = categoryRepository.findById(id);
-        if (existingCategory.isPresent()) {
-            category.setId(id);
-            return categoryRepository.save(category);
-        }
-        return null;
+    public String updateCategory(long id, UpdateCate updateCate) {
+        Category existingCategory = categoryRepository.findById(id).get();
+        existingCategory.setName(updateCate.getName());
+        existingCategory.setIsDelete(updateCate.isDelete());
+        categoryRepository.save(existingCategory);
+        return "Category updated successfully!";
     }
 
     @Override
