@@ -82,11 +82,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> isValidEmail(RegisterDto registerDto) {
-        if (otpMap.isEmpty() || !otpMap.get(registerDto.getEmail()).equals(registerDto.getOtp())) {
+        if ( !otpMap.get(registerDto.getEmail()).equals(registerDto.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
-        if (!isOTPValid(registerDto.getEmail())) {
+        if (otpMap.isEmpty() ||!isOTPValid(registerDto.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
         }
 
@@ -131,7 +131,7 @@ public class AuthServiceImpl implements AuthService {
         otpMap.put(email, otp);
         System.out.println(otpMap);
 
-        scheduleOTPCleanup(email, 3);
+        scheduleOTPCleanup(email, 5);
         System.out.println(otpMap);
 
         emailService.sendResetPasswordEmail(email, otp, "OTP for password reset");
@@ -142,11 +142,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> resetPassword(ResetPassword resetPassword) {
         System.out.println(resetPassword);
-        if (otpMap.isEmpty() || !otpMap.get(resetPassword.getEmail()).equals(resetPassword.getOtp())) {
+        if (!otpMap.get(resetPassword.getEmail()).equals(resetPassword.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
-        if (!isOTPValid(resetPassword.getEmail())) {
+        if (otpMap.isEmpty() || !isOTPValid(resetPassword.getEmail())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
         }
 
