@@ -82,13 +82,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> isValidEmail(RegisterDto registerDto) {
+        if (otpMap.isEmpty() ||!isOTPValid(registerDto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
+        }
+
         if ( !otpMap.get(registerDto.getEmail()).equals(registerDto.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
-        if (otpMap.isEmpty() ||!isOTPValid(registerDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
-        }
 
         User user = new User();
         user.setEmail(registerDto.getEmail());
@@ -141,14 +142,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> resetPassword(ResetPassword resetPassword) {
-        System.out.println(resetPassword);
+        if (otpMap.isEmpty() || !isOTPValid(resetPassword.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
+        }
+
         if (!otpMap.get(resetPassword.getEmail()).equals(resetPassword.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
-        if (otpMap.isEmpty() || !isOTPValid(resetPassword.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP has expired.");
-        }
 
         User user = userRepository.findByEmail(resetPassword.getEmail());
         if (user != null) {
