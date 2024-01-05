@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto createUser(UpdateUser updateUser) {
+    public String createUser(UpdateUser updateUser) {
         User user = new User();
         if (userRepository.existsByEmail(user.getEmail())) {
             return null;
@@ -72,11 +72,11 @@ public class UserServiceImpl implements UserService {
         user.setEmail(updateUser.getEmail());
         user.setAdmin(updateUser.isAdmin());
         user.setStatus(true);
-        return UserMapper.toUserDto(userRepository.save(user));
+        return "Create success";
     }
 
     @Override
-    public UserDto updateUser(long id, UpdateUser updateUser) {
+    public String updateUser(long id, UpdateUser updateUser) {
         User user = userRepository.findById(id).get();
         if (userRepository.existsByEmail(updateUser.getEmail()) && !user.getEmail().equals(updateUser.getEmail())) {
             return null;
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(updateUser.getEmail());
         user.setAdmin(updateUser.isAdmin());
         user.setStatus(updateUser.isStatus());
-        return UserMapper.toUserDto(userRepository.save(user));
+        return "Update success";
     }
 
     @Override

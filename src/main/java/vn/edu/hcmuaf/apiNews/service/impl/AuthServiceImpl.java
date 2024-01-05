@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
             user.setStatus(updateUser.isStatus());
             user.setAdmin(updateUser.isAdmin());
             userRepository.save(user);
-            return new ResponseEntity<>(UserMapper.toUserDto(userRepository.findByEmail(updateUser.getEmail())), HttpStatus.OK);
+            return new ResponseEntity<>("Create success", HttpStatus.OK);
         }
     }
 
