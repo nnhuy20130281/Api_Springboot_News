@@ -15,9 +15,9 @@ public interface NewsService {
 
     News getNewsById(long id);
 
-    News createNews(NewsDto newsDto);
+    String createNews(NewsDto newsDto);
 
-    News updateNews(long id, News news);
+    String updateNews(long id, NewsDto newsDto);
 
     void updateNewsHidden(long id);
 

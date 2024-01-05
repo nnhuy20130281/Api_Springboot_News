@@ -56,16 +56,16 @@ public class NewsController {
 
     // create news
     @PostMapping
-    public ResponseEntity<News> createNews(@RequestBody NewsDto newsDto) {
-        News createdNews = newsService.createNews(newsDto);
+    public ResponseEntity<?> createNews(@RequestBody NewsDto newsDto) {
+        String createdNews = newsService.createNews(newsDto);
         return new ResponseEntity<>(createdNews, HttpStatus.CREATED);
     }
 
     // update news
     @PutMapping("/{id}")
-    public ResponseEntity<News> updateNews(@PathVariable long id, @RequestBody News news) {
-        News updatedNews = newsService.updateNews(id, news);
-        return updatedNews != null ? ResponseEntity.ok(updatedNews) : ResponseEntity.notFound().build();
+    public ResponseEntity<?> updateNews(@PathVariable long id, @RequestBody NewsDto newsDto) {
+        String updatedNews = newsService.updateNews(id, newsDto);
+        return new ResponseEntity<>(updatedNews ,HttpStatus.OK);
     }
 
     // update news hidden
