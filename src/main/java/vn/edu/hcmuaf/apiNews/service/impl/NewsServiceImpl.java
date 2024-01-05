@@ -48,7 +48,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News createNews(NewsDto newsDto) {
+    public String createNews(NewsDto newsDto) {
         LocalDate currentDate = LocalDate.now();
         News news = new News();
         news.setTitle(newsDto.getTitle());
@@ -66,17 +66,21 @@ public class NewsServiceImpl implements NewsService {
         }
 
 
-        return news;
+        return "Create news success";
     }
 
     @Override
-    public News updateNews(long id, News news) {
-        Optional<News> existingNews = newsRepository.findById(id);
-        if (existingNews.isPresent()) {
-            news.setId(id);
-            return newsRepository.save(news);
-        }
-        return news;
+    public String updateNews(long id, NewsDto newsDto) {
+        News existingNews = newsRepository.findById(id).get();
+        existingNews.setTitle(newsDto.getTitle());
+        existingNews.setDescription(newsDto.getDescription());
+        existingNews.setImage(newsDto.getImage());
+        existingNews.setContent(newsDto.getContent());
+        existingNews.setDelete(existingNews.isDelete());
+
+        newsRepository.save(existingNews);
+
+        return "Update news success";
     }
 
     @Override

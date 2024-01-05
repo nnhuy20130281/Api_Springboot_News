@@ -83,6 +83,7 @@ public class SecurityConfiguration {
         );
 
 
+
         // use HTTP Basic authentication
         http.httpBasic();
 
