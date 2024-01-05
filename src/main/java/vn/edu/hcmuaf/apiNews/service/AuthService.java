@@ -6,7 +6,6 @@ import vn.edu.hcmuaf.apiNews.model.dto.*;
 public interface AuthService {
     ResponseEntity<?> login(LoginDto loginDto);
 
-    String changePassword(String username, String password);
 
     ResponseEntity<?> registers (RegisterDto registerDto);
 

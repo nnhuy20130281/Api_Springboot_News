@@ -59,11 +59,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String changePassword(String username, String password) {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<?> registers(RegisterDto registerDto) {
         if (userRepository.existsByEmail(registerDto.getEmail())) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
