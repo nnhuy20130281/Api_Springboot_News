@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(updateUser.getEmail());
         user.setAdmin(updateUser.isAdmin());
         user.setStatus(updateUser.isStatus());
+        userRepository.save(user);
         return "Update success";
     }
 
