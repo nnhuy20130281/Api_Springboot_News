@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> isValidEmail(RegisterDto registerDto) {
-        if (otpMap== null || !otpMap.get(registerDto.getEmail()).equals(registerDto.getOtp())) {
+        if (otpMap.isEmpty() || !otpMap.get(registerDto.getEmail()).equals(registerDto.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
@@ -106,7 +106,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ResponseEntity<?> adminRegister(UpdateUser updateUser) {
-        String result = "";
         if (userRepository.existsByEmail(updateUser.getEmail())) {
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
         } else {
@@ -143,7 +142,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> resetPassword(ResetPassword resetPassword) {
         System.out.println(resetPassword);
-        if (otpMap== null || !otpMap.get(resetPassword.getEmail()).equals(resetPassword.getOtp())) {
+        if (otpMap.isEmpty() || !otpMap.get(resetPassword.getEmail()).equals(resetPassword.getOtp())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP.");
         }
 
