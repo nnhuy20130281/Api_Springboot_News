@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.Category;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 
 import java.util.List;
@@ -44,16 +45,16 @@ public class CategoryController {
     }
     // get news by category
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category createdCategory = categoryService.createCategory(category);
+    public ResponseEntity<String> createCategory(@RequestBody UpdateCate updateCate) {
+        String createdCategory = categoryService.createCategory(updateCate);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
     // update category
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable long id, @RequestBody Category category) {
-        Category updatedCategory = categoryService.updateCategory(id, category);
-        return updatedCategory != null ? ResponseEntity.ok(updatedCategory) : ResponseEntity.notFound().build();
+    public ResponseEntity<String> updateCategory(@PathVariable long id, @RequestBody UpdateCate updateCate) {
+        String updatedCategory = categoryService.updateCategory(id, updateCate);
+        return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }
 
     // hide category
@@ -65,7 +66,7 @@ public class CategoryController {
 
     // delete category
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable long id) {
+    public ResponseEntity<?> deleteCategory(@PathVariable long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
