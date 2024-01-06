@@ -36,7 +36,9 @@ public interface UserService extends UserDetailsService {
 
     Set<News> getBookmark(long id);
 
-    void addBookmark(long idUser, long idNews);
+    String addBookmark(long idUser, long idNews);
+
+    String deleteBookmark(long idUser, long idNews);
 
     void deleteAllBookmark(long idUser);
 

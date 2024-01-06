@@ -113,8 +113,15 @@ public class UserController {
     // add bookmark
     @PutMapping("/bookmark/{idUser}/{idNews}")
     public ResponseEntity<String> addBookmark(@PathVariable long idUser, @PathVariable long idNews) {
-        userService.addBookmark(idUser, idNews);
-        return ResponseEntity.ok("200");
+        String addBookmark = userService.addBookmark(idUser, idNews);
+        return ResponseEntity.ok(addBookmark);
+    }
+
+    // delete bookmark
+    @DeleteMapping("/bookmark/{idUser}/{idNews}")
+    public ResponseEntity<String> deleteBookmark(@PathVariable long idUser, @PathVariable long idNews) {
+        String deleteBookmark = userService.deleteBookmark(idUser, idNews);
+        return ResponseEntity.ok(deleteBookmark);
     }
 
     // delete all bookmark

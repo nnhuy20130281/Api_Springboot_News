@@ -117,16 +117,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addBookmark(long idUser, long idNews) {
+    public String addBookmark(long idUser, long idNews) {
         Optional<User> user = userRepository.findById(idUser);
         Optional<News> news = newsRepository.findById(idNews);
-        if (user.get().getListBookmark().contains(news.get())) {
-            user.get().getListBookmark().remove(news.get());
-            userRepository.save(user.get());
-        } else {
-            user.get().getListBookmark().add(news.get());
-            userRepository.save(user.get());
+        if (user.get().getListBookmark().contains(news.get())){
+            return "News already bookmark";
         }
+        user.get().getListBookmark().add(news.get());
+        userRepository.save(user.get());
+        return "Add bookmark success";
+    }
+
+    @Override
+    public String deleteBookmark(long idUser, long idNews) {
+        Optional<User> user = userRepository.findById(idUser);
+        Optional<News> news = newsRepository.findById(idNews);
+        if (!user.get().getListBookmark().contains(news.get())){
+            return "News not bookmark";
+        }
+        user.get().getListBookmark().remove(news.get());
+        userRepository.save(user.get());
+        return "Delete bookmark success";
     }
 
     @Override
