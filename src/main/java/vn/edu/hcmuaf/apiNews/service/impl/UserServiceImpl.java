@@ -10,8 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
+import vn.edu.hcmuaf.apiNews.model.mapper.NewsMapper;
 import vn.edu.hcmuaf.apiNews.model.mapper.UserMapper;
 import vn.edu.hcmuaf.apiNews.repository.NewsRepository;
 import vn.edu.hcmuaf.apiNews.repository.UserRepository;
@@ -112,8 +114,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<News> getBookmark(long id) {
-        return userRepository.findById(id).get().getListBookmark();
+    public Set<NewsDto> getBookmark(long id) {
+        return NewsMapper.toNewsDto(userRepository.findById(id).get().getListBookmark());
     }
 
     @Override

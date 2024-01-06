@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.apiNews.service;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 
@@ -34,7 +35,7 @@ public interface UserService extends UserDetailsService {
 
     void lockUser(long id);
 
-    Set<News> getBookmark(long id);
+    Set<NewsDto> getBookmark(long id);
 
     String addBookmark(long idUser, long idNews);
 

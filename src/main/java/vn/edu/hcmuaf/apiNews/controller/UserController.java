@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.entity.User;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.RegisterDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateUser;
 import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
@@ -105,8 +106,8 @@ public class UserController {
 
     // get bookmark
     @GetMapping("/bookmark/{id}")
-    public ResponseEntity<Set<News>> getBookmark(@PathVariable long id) {
-        Set<News> news = userService.getBookmark(id);
+    public ResponseEntity<Set<NewsDto>> getBookmark(@PathVariable long id) {
+        Set<NewsDto> news = userService.getBookmark(id);
         return news != null ? ResponseEntity.ok(news) : ResponseEntity.notFound().build();
     }
 
