@@ -28,6 +28,8 @@ public interface UserService extends UserDetailsService {
 
     String updateUser(long id, UpdateUser updateUser);
 
+    String updateUserProfile(long id, UpdateUser updateUser);
+
     void deleteUser(long id);
 
     void lockUser(long id);

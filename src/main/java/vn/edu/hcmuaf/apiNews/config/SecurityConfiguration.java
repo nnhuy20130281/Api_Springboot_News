@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT, "/api/users/lock/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/api/users/{id}").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/users/profile/{id}").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/api/users/bookmark/{id}").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/api/users/bookmark/{idUser}/{idNews}").authenticated()
