@@ -89,6 +89,13 @@ public class UserController {
         return ResponseEntity.ok("200");
     }
 
+    // update password
+    @PutMapping("/update-password/{id}")
+    public ResponseEntity<String> updatePassword(@PathVariable long id) {
+        String updatedPassword = authService.updatePassword(id);
+        return new ResponseEntity<>(updatedPassword, HttpStatus.OK);
+    }
+
     // get bookmark
     @GetMapping("/bookmark/{id}")
     public ResponseEntity<Set<News>> getBookmark(@PathVariable long id) {
@@ -100,6 +107,13 @@ public class UserController {
     @PutMapping("/bookmark/{idUser}/{idNews}")
     public ResponseEntity<String> addBookmark(@PathVariable long idUser, @PathVariable long idNews) {
         userService.addBookmark(idUser, idNews);
+        return ResponseEntity.ok("200");
+    }
+
+    // delete all bookmark
+    @DeleteMapping("/bookmark/{id}")
+    public ResponseEntity<String> deleteAllBookmark(@PathVariable long id) {
+        userService.deleteAllBookmark(id);
         return ResponseEntity.ok("200");
     }
 }

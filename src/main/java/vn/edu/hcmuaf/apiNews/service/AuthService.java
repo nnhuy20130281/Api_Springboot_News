@@ -19,4 +19,7 @@ public interface AuthService {
     ResponseEntity<?> resetPassword(ResetPassword resetPassword);
 
     ResponseEntity<?> changePassword(ChangePassword changePassword);
+
+    String updatePassword(long id);
+
 }
