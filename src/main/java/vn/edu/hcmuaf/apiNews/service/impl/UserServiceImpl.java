@@ -89,6 +89,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String updateUserProfile(long id, UpdateUser updateUser) {
+        User user = userRepository.findById(id).get();
+        if (userRepository.existsByEmail(updateUser.getEmail()) && !user.getEmail().equals(updateUser.getEmail())) {
+            return null;
+        }
+        user.setFullName(updateUser.getFullName());
+        userRepository.save(user);
+        return "Update success";
+    }
+
+    @Override
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
