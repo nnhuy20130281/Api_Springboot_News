@@ -4,6 +4,7 @@ import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 
 import java.util.List;
+import java.util.Set;
 
 public class NewsMapper {
 
@@ -23,5 +24,9 @@ public class NewsMapper {
 
     public static List<NewsDto> toNewsDto(List<News> news){
         return news.stream().map(NewsMapper::toNewsDto).collect(java.util.stream.Collectors.toList());
+    }
+
+    public static Set<NewsDto> toNewsDto(Set<News> news){
+        return news.stream().map(NewsMapper::toNewsDto).collect(java.util.stream.Collectors.toSet());
     }
 }
