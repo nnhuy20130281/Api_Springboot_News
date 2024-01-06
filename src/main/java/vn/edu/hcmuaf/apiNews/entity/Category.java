@@ -44,8 +44,4 @@ public class Category {
     )
     @JsonManagedReference
     private Set<News> listNews;
-
-
-
-    // Getters and setters
 }

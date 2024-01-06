@@ -31,7 +31,7 @@ public class News {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @ManyToMany(mappedBy = "listNews", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "listNews", fetch = FetchType.LAZY)
     @JsonBackReference
     private Set<Category> categories;
     // getters and setters

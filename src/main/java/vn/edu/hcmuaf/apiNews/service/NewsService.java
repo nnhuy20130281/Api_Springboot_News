@@ -2,22 +2,23 @@ package vn.edu.hcmuaf.apiNews.service;
 
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateNews;
 
 import java.util.List;
 
 public interface NewsService {
 
-    List<News> getAllNews();
+    List<NewsDto> getAllNews();
 
-    List<News> getNewsAll();
+    List<NewsDto> getNewsAll();
 
-    List<News> getAllNewsHidden();
+    List<NewsDto> getAllNewsHidden();
 
-    News getNewsById(long id);
+    NewsDto getNewsById(long id);
 
-    String createNews(NewsDto newsDto);
+    String createNews(UpdateNews updateNews);
 
-    String updateNews(long id, NewsDto newsDto);
+    String updateNews(long id, UpdateNews updateNews);
 
     void updateNewsHidden(long id);
 

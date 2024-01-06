@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateNews;
+import vn.edu.hcmuaf.apiNews.model.mapper.NewsMapper;
 import vn.edu.hcmuaf.apiNews.repository.CategoryRepository;
 import vn.edu.hcmuaf.apiNews.repository.NewsRepository;
 import vn.edu.hcmuaf.apiNews.service.NewsService;
@@ -28,40 +30,40 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public List<News> getAllNews() {
-        return newsRepository.findByIsDeleteFalse();
+    public List<NewsDto> getAllNews() {
+        return NewsMapper.toNewsDto(newsRepository.findByIsDeleteFalse());
     }
 
     @Override
-    public List<News> getNewsAll() {
-        return newsRepository.findAll();
+    public List<NewsDto> getNewsAll() {
+        return NewsMapper.toNewsDto(newsRepository.findAll());
     }
 
     @Override
-    public List<News> getAllNewsHidden() {
-        return newsRepository.findByIsDeleteTrue();
+    public List<NewsDto> getAllNewsHidden() {
+        return NewsMapper.toNewsDto(newsRepository.findByIsDeleteTrue());
     }
 
     @Override
-    public News getNewsById(long id) {
-        return newsRepository.findById(id).orElse(null);
+    public NewsDto getNewsById(long id) {
+        return NewsMapper.toNewsDto(newsRepository.findById(id).orElse(null));
     }
 
     @Override
-    public String createNews(NewsDto newsDto) {
+    public String createNews(UpdateNews updateNews) {
         LocalDate currentDate = LocalDate.now();
         News news = new News();
-        news.setTitle(newsDto.getTitle());
-        news.setDescription(newsDto.getDescription());
-        news.setImage(newsDto.getImage());
-        news.setContent(newsDto.getContent());
+        news.setTitle(updateNews.getTitle());
+        news.setDescription(updateNews.getDescription());
+        news.setImage(updateNews.getImage());
+        news.setContent(updateNews.getContent());
         news.setDelete(false);
-        news.setCreatedBy(newsDto.getCreatedBy());
+        news.setCreatedBy(updateNews.getCreatedBy());
         news.setCreatedDate(Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         newsRepository.save(news);
 
-        for (Long id : newsDto.getIdCategories()) {
+        for (Long id : updateNews.getIdCategories()) {
             addNewsToCate(news.getId(), id);
         }
 
@@ -70,12 +72,12 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public String updateNews(long id, NewsDto newsDto) {
+    public String updateNews(long id, UpdateNews updateNews) {
         News existingNews = newsRepository.findById(id).get();
-        existingNews.setTitle(newsDto.getTitle());
-        existingNews.setDescription(newsDto.getDescription());
-        existingNews.setImage(newsDto.getImage());
-        existingNews.setContent(newsDto.getContent());
+        existingNews.setTitle(updateNews.getTitle());
+        existingNews.setDescription(updateNews.getDescription());
+        existingNews.setImage(updateNews.getImage());
+        existingNews.setContent(updateNews.getContent());
         existingNews.setDelete(existingNews.isDelete());
 
         newsRepository.save(existingNews);
@@ -85,7 +87,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void updateNewsHidden(long id) {
-        News news = getNewsById(id);
+        News news = newsRepository.findById(id).get();
         news.setDelete(!news.isDelete());
         newsRepository.save(news);
     }

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
+import vn.edu.hcmuaf.apiNews.model.mapper.NewsMapper;
 import vn.edu.hcmuaf.apiNews.repository.CategoryRepository;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 
@@ -71,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<News> getNewsByCategory(long id) {
-        return categoryRepository.findById(id).get().getListNews().stream().toList();
+    public List<NewsDto> getNewsByCategory(long id) {
+        return NewsMapper.toNewsDto(categoryRepository.findById(id).get().getListNews().stream().toList());
     }
 }

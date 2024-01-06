@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.apiNews.service;
 
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface CategoryService {
 
     void hideCategory(long id);
 
-    List<News> getNewsByCategory(long id);
+    List<NewsDto> getNewsByCategory(long id);
 }

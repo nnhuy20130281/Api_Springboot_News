@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.News;
 import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
+import vn.edu.hcmuaf.apiNews.model.dto.UpdateNews;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 import vn.edu.hcmuaf.apiNews.service.NewsService;
 
@@ -23,48 +24,48 @@ public class NewsController {
 
     // get all news
     @GetMapping
-    public List<News> getAllNews() {
+    public List<NewsDto> getAllNews() {
         return newsService.getAllNews();
     }
 
     // get all news
     @GetMapping("/all")
-    public List<News> getNewsAll() {
+    public List<NewsDto> getNewsAll() {
         return newsService.getNewsAll();
     }
 
 
     // get all news hidden
     @GetMapping("/hidden")
-    public List<News> getAllNewsHidden() {
+    public List<NewsDto> getAllNewsHidden() {
         return newsService.getAllNewsHidden();
     }
 
     // get news by id
     @GetMapping("/{id}")
-    public ResponseEntity<News> getNewsById(@PathVariable long id) {
-        News news = newsService.getNewsById(id);
+    public ResponseEntity<NewsDto> getNewsById(@PathVariable long id) {
+        NewsDto news = newsService.getNewsById(id);
         return news != null ? ResponseEntity.ok(news) : ResponseEntity.notFound().build();
     }
 
     // get news by category
     @GetMapping("/cate/{id}")
-    public ResponseEntity<List<News>> getNewsByCategory(@PathVariable long id) {
-        List<News> news = categoryService.getNewsByCategory(id);
+    public ResponseEntity<List<NewsDto>> getNewsByCategory(@PathVariable long id) {
+        List<NewsDto> news = categoryService.getNewsByCategory(id);
         return news != null ? ResponseEntity.ok(news) : ResponseEntity.notFound().build();
     }
 
     // create news
     @PostMapping
-    public ResponseEntity<?> createNews(@RequestBody NewsDto newsDto) {
-        String createdNews = newsService.createNews(newsDto);
+    public ResponseEntity<?> createNews(@RequestBody UpdateNews updateNews) {
+        String createdNews = newsService.createNews(updateNews);
         return new ResponseEntity<>(createdNews, HttpStatus.CREATED);
     }
 
     // update news
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateNews(@PathVariable long id, @RequestBody NewsDto newsDto) {
-        String updatedNews = newsService.updateNews(id, newsDto);
+    public ResponseEntity<?> updateNews(@PathVariable long id, @RequestBody UpdateNews updateNews) {
+        String updatedNews = newsService.updateNews(id, updateNews);
         return new ResponseEntity<>(updatedNews ,HttpStatus.OK);
     }
 
