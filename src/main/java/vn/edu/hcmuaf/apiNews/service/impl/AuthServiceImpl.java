@@ -171,9 +171,18 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public String updatePassword(long id) {
+        User user = userRepository.findById(id).get();
+        String password = String.format("%08d", new Random().nextInt(999999999));
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        emailService.sendEmail(user.getEmail(), "New password", "Your new password is: " + password + " . Please change your password after login.");
+        return "Update password success";
+    }
 
     private String generateOTP() {
-        return String.format("%06d", new Random().nextInt(10000));
+        return String.format("%06d", new Random().nextInt(999999));
     }
 
     private void scheduleOTPCleanup(String email, int minutes) {

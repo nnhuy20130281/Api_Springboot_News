@@ -15,12 +15,10 @@ import vn.edu.hcmuaf.apiNews.model.dto.UserDto;
 import vn.edu.hcmuaf.apiNews.model.mapper.UserMapper;
 import vn.edu.hcmuaf.apiNews.repository.NewsRepository;
 import vn.edu.hcmuaf.apiNews.repository.UserRepository;
+import vn.edu.hcmuaf.apiNews.service.EmailService;
 import vn.edu.hcmuaf.apiNews.service.UserService;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -114,11 +112,19 @@ public class UserServiceImpl implements UserService {
         if (user.get().getListBookmark().contains(news.get())) {
             user.get().getListBookmark().remove(news.get());
             userRepository.save(user.get());
-        }else {
+        } else {
             user.get().getListBookmark().add(news.get());
             userRepository.save(user.get());
         }
     }
+
+    @Override
+    public void deleteAllBookmark(long idUser) {
+        Optional<User> user = userRepository.findById(idUser);
+        user.get().getListBookmark().clear();
+        userRepository.save(user.get());
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

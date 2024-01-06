@@ -36,6 +36,7 @@ public interface UserService extends UserDetailsService {
 
     void addBookmark(long idUser, long idNews);
 
+    void deleteAllBookmark(long idUser);
 
 
 }
