@@ -50,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
     public String createCategory(UpdateCate updateCate) {
         Category category = new Category();
         category.setName(updateCate.getName());
-        category.setIsDelete(updateCate.isDelete());
+        category.setDelete(updateCate.isDelete());
         category.setCreatedBy(updateCate.getCreatedBy());
         category.setCreatedDate(updateCate.getCreatedDate());
         categoryRepository.save(category);
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     public String updateCategory(long id, UpdateCate updateCate) {
         Category existingCategory = categoryRepository.findById(id).get();
         existingCategory.setName(updateCate.getName());
-        existingCategory.setIsDelete(updateCate.isDelete());
+        existingCategory.setDelete(updateCate.isDelete());
         categoryRepository.save(existingCategory);
         return "Category updated successfully!";
     }
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void hideCategory(long id) {
         Category category = getCategoryById(id);
-        category.setIsDelete(!category.getIsDelete());
+        category.setDelete(!category.isDelete());
         categoryRepository.save(category);
     }
 

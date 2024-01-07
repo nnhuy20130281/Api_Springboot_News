@@ -28,7 +28,7 @@ public class Category {
     private String name;
 
     @Column(name = "isDelete")
-    private Boolean isDelete;
+    private boolean isDelete;
 
     @Column(name = "created_date")
     private Date createdDate;

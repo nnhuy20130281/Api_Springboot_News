@@ -10,6 +10,6 @@ import lombok.*;
 public class CateDto {
     private long id;
     private String name;
-    private Boolean isDelete;
+    private boolean isDelete;
 
 }
