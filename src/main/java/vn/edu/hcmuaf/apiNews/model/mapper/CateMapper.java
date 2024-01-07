@@ -11,7 +11,7 @@ public class CateMapper {
         CateDto cateDto = new CateDto();
         cateDto.setId(category.getId());
         cateDto.setName(category.getName());
-        cateDto.setIsDelete(category.getIsDelete());
+        cateDto.setDelete(category.isDelete());
         return cateDto;
     }
 
