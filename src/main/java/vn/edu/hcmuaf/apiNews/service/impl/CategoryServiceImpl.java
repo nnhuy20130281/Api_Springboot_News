@@ -4,14 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmuaf.apiNews.entity.Category;
 import vn.edu.hcmuaf.apiNews.entity.News;
+import vn.edu.hcmuaf.apiNews.model.dto.CateDto;
 import vn.edu.hcmuaf.apiNews.model.dto.NewsDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
+import vn.edu.hcmuaf.apiNews.model.mapper.CateMapper;
 import vn.edu.hcmuaf.apiNews.model.mapper.NewsMapper;
 import vn.edu.hcmuaf.apiNews.repository.CategoryRepository;
+import vn.edu.hcmuaf.apiNews.repository.NewsRepository;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -19,6 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private NewsRepository newsRepository;
 
     @Override
     public List<Category> getAllCategory() {
@@ -75,5 +81,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<NewsDto> getNewsByCategory(long id) {
         return NewsMapper.toNewsDto(categoryRepository.findById(id).get().getListNews().stream().toList());
+    }
+
+    @Override
+    public Set<CateDto> getListCategoryFromNews(long newsId) {
+        return CateMapper.toCateDto(newsRepository.findById(newsId).get().getCategories());
     }
 }

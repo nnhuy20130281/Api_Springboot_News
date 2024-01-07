@@ -6,10 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.apiNews.entity.Category;
+import vn.edu.hcmuaf.apiNews.model.dto.CateDto;
 import vn.edu.hcmuaf.apiNews.model.dto.UpdateCate;
 import vn.edu.hcmuaf.apiNews.service.CategoryService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/cate")
@@ -18,6 +20,7 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
 
     // get all category
     @GetMapping
@@ -48,6 +51,13 @@ public class CategoryController {
     public ResponseEntity<String> createCategory(@RequestBody UpdateCate updateCate) {
         String createdCategory = categoryService.createCategory(updateCate);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
+    }
+
+    // get category by news
+    @GetMapping("/news/{id}")
+    public ResponseEntity<Set<CateDto>> getCategoryByNews(@PathVariable long id) {
+        Set<CateDto> category = categoryService.getListCategoryFromNews(id);
+        return category != null ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
     }
 
     // update category
