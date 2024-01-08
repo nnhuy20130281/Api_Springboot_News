@@ -14,5 +14,5 @@ public class UpdateUser {
     private String email;
     private String password;
     private boolean status;
-    private boolean isAdmin;
+    private boolean admin;
 }
