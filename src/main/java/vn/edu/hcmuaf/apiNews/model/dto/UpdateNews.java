@@ -13,6 +13,7 @@ public class UpdateNews {
     private String description;
     private String image;
     private String content;
+    private boolean delete;
     private String createdBy;
     private List<Long> idCategories;
 

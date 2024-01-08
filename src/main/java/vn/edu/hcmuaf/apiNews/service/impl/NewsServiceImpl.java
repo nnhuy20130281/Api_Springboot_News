@@ -83,8 +83,9 @@ public class NewsServiceImpl implements NewsService {
         existingNews.setDescription(updateNews.getDescription());
         existingNews.setImage(updateNews.getImage());
         existingNews.setContent(updateNews.getContent());
-        existingNews.setDelete(existingNews.isDelete());
+        existingNews.setDelete(updateNews.isDelete());
 
+        System.out.println(updateNews.isDelete());
         removeAllCategoryByNews(existingNews.getId());
 
         for (Long idCate : updateNews.getIdCategories()) {
