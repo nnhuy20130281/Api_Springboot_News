@@ -29,6 +29,7 @@ public interface CategoryService {
 
     List<NewsDto> getNewsByCategory(long id);
 
+
     Set<CateDto> getListCategoryFromNews(long newsId);
 
 }

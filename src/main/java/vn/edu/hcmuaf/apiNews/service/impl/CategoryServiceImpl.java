@@ -83,6 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
         return NewsMapper.toNewsDto(categoryRepository.findById(id).get().getListNews().stream().toList());
     }
 
+
     @Override
     public Set<CateDto> getListCategoryFromNews(long newsId) {
         return CateMapper.toCateDto(newsRepository.findById(newsId).get().getCategories());
