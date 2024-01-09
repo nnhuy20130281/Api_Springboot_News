@@ -112,6 +112,16 @@ public class NewsServiceImpl implements NewsService {
         newsRepository.deleteById(id);
     }
 
+    @Override
+    public List<NewsDto> getNewsFlash() {
+        return NewsMapper.toNewsDto(newsRepository.findTop3ByIsDeleteFalseOrderByCreatedDateDesc());
+    }
+
+    @Override
+    public List<NewsDto> getNewsFlashByCategory(long categoryId) {
+        return NewsMapper.toNewsDto(newsRepository.findTop3ByCategories_IdAndIsDeleteFalseOrderByCreatedDateDesc(categoryId));
+    }
+
     // add news to category
     private void addNewsToCate(Long newsId, Long cateId) {
         Optional<News> news = newsRepository.findById(newsId);

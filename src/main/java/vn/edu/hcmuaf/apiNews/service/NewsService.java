@@ -24,5 +24,9 @@ public interface NewsService {
 
     void deleteNews(long id);
 
+    List<NewsDto> getNewsFlash();
+
+    List<NewsDto> getNewsFlashByCategory(long categoryId);
+
 }
 

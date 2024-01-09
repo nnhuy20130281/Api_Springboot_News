@@ -82,5 +82,17 @@ public class NewsController {
         newsService.deleteNews(id);
         return ResponseEntity.noContent().build();
     }
+
+    // get news flash
+    @GetMapping("/flash")
+    public List<NewsDto> getNewsFlash() {
+        return newsService.getNewsFlash();
+    }
+
+    // get news flash by category
+    @GetMapping("/flash/{id}")
+    public List<NewsDto> getNewsFlashByCategory(@PathVariable long id) {
+        return newsService.getNewsFlashByCategory(id);
+    }
 }
 

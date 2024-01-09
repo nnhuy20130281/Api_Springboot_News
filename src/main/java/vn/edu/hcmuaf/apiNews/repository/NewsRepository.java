@@ -11,4 +11,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     List<News> findByIsDeleteFalse();
 
     List<News> findByIsDeleteTrue();
+
+    List<News> findTop3ByIsDeleteFalseOrderByCreatedDateDesc();
+
+    List<News> findTop3ByCategories_IdAndIsDeleteFalseOrderByCreatedDateDesc(long categoryId);
 }
